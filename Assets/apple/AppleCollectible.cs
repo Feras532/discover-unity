@@ -3,12 +3,16 @@ using UnityEngine;
 public class CollectibleApple : MonoBehaviour
 {
     public AudioClip biteSound;
+    public int scoreValue = 1;
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            AudioSource.PlayClipAtPoint(biteSound, transform.position);
+            if (biteSound)
+                AudioSource.PlayClipAtPoint(biteSound, transform.position);
+
+            ScoreManager.instance.AddScore(scoreValue);
             Destroy(gameObject);
         }
     }
